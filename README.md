@@ -19,7 +19,7 @@
 1. Зклонуйте репозиторій:
 
 ```bash
-git clone git@github.com:Ropomkopo/wa-sender.git
+git clone git@github.com:Ropomkopo/whatsapp-message-scheduler.git
 cd wa-sender
 ```
 
