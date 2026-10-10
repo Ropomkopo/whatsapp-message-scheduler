@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Automator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>WhatsApp Automator</h1>
+            <p>Заплануйте повідомлення і система надішле їх за вас</p>
+        </header>
+
+        <main class="grid-container">
+            <!-- Left panel: Authentication -->
+            <div class="card auth-card">
+                <h2>1. Прив'язка акаунту</h2>
+                <div id="status-badge" class="status-badge connecting">Підключення...</div>
+                
+                <div id="qr-container" class="qr-box">
+                    <p class="instruction">Відскануйте QR-код за допомогою WhatsApp на вашому телефоні</p>
+                    <div id="qrcode"></div>
+                    <div class="loader" id="qr-loader"></div>
+                    <button id="btn-reconnect" class="btn-primary hidden" style="margin-top: 15px;">Згенерувати новий QR-код</button>
+                </div>
+
+                <div id="connected-state" class="connected-box hidden">
+                    <div class="success-icon">✅</div>
+                    <h3>Акаунт підключено!</h3>
+                    <p>Ваш WhatsApp успішно прив'язаний до поточної сесії. Тепер ви можете додавати розклади.</p>
+                </div>
+            </div>
+
+            <!-- Right panel: Task Management -->
+            <div class="card task-card">
+                <h2>2. Запланувати повідомлення</h2>
+                <div id="overlay" class="overlay">
+                    <p>Спочатку прив'яжіть акаунт WhatsApp зліва 🔒</p>
+                </div>
+
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="phone">Номер телефону</label>
+                        <input type="text" id="phone" placeholder="+380991234567" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cron">Час (формат Cron)</label>
+                        <input type="text" id="cron" placeholder="Наприклад: 0 9 * * *" required>
+                        <small><a href="https://crontab.guru/" target="_blank">Як працює Cron?</a> (0 9 * * * = щодня о 9:00)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Повідомлення</label>
+                        <textarea id="message" rows="4" placeholder="Напишіть текст повідомлення..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Запланувати відправку</button>
+                </form>
+
+                <div class="tasks-section">
+                    <h3>Ваші заплановані завдання</h3>
+                    <div id="tasks-list" class="tasks-list">
+                        <!-- Tasks will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

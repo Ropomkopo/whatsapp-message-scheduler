@@ -149,3 +149,5 @@ vite.config.ts.timestamp-*
 .turbo
 .wwebjs_auth/
 .wwebjs_cache/
+.sessions/
+.DS_Store
